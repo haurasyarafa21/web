@@ -6,6 +6,14 @@ def home_page(request):
 	if request.method == 'POST':
 		Item.objects.create(text=request.POST['item_text'])
 		return redirect('/')
+
+	komen = ''
+	if Item.objects.count()==0:
+		komen='yey, waktunya berlibur'
+	elif Item.objects.count()<5:
+		komen='sibuk, tapi santai'
+	else: 
+		komen='oh tidak'	
 	
 	items = Item.objects.all()
-	return render(request, 'home.html', {'items': items})
+	return render(request, 'home.html', {'items': items, 'komen': komen})

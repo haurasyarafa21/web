@@ -14,7 +14,9 @@ class HomePageTest(TestCase):
 	def test_home_page_returns_correct_html(self):
 		request = HttpRequest()
 		response = home_page(request)
-		expected_html = render_to_string('home.html')
+		expected_html = render_to_string('home.html', 
+			{ 'komen': 'yey, waktunya berlibur' }
+		)
 		self.assertEqual(response.content.decode(), expected_html)
 		self.assertTrue(response.content.startswith(b'<html>'))
 		self.assertIn(b'<title>To-Do</title>', response.content)
@@ -60,7 +62,7 @@ class HomePageTest(TestCase):
 		request = HttpRequest()
 		response = home_page(request)
 
-		self.assertEqual(Item.objects.count(), 0):
+		self.assertEqual(Item.objects.count(), 0)
 		self.assertIn('yey, waktunya berlibur', response.content.decode())
 
 	def to_do_list_kurang_lima(self):

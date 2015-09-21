@@ -14,8 +14,16 @@ def home_page(request):
 	return render(request, 'home.html', {'komen': komen})
 
 def view_list(request, list_id):
+	komen=''
+	if Item.objects.count()==0:	
+		komen='yey, waktunya berlibur'
+	elif Item.objects.count()<5:
+		komen='sibuk, tapi santai'
+	else:
+		komen='oh tidak'
+
 	list_ = List.objects.get(id=list_id)
-	return render(request, 'list.html', {'list': list_})
+	return render(request, 'list.html', {'list': list_, 'komen': komen})
 
 def new_list(request):
 	list_ = List.objects.create()

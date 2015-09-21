@@ -33,23 +33,27 @@ class HomePageTest(TestCase):
 		self.assertEqual(Item.objects.count(), 0)
 		self.assertIn('yey, waktunya berlibur', response.content.decode())
 
-	#def test_to_do_list_kurang_lima(self):
-	#	Item.objects.create(text='itemey 1')
-	#	request = HttpRequest()
-	#	response = home_page(request)
-	#	self.assertLess(Item.objects.count(), 5)
-	#	self.assertIn('sibuk, tapi santai', response.content.decode())
+	def test_to_do_list_kurang_lima(self):
+		list_ = List.objects.create()
+		Item.objects.create(text='itemey 1', list=list_)
+		request = HttpRequest()
+		response = self.client.get('/lists/%d/' % (list_.id,)) 
+		#response = home_page(request)
+		self.assertTrue(response, self.assertLess(Item.objects.count(), 5))
+		self.assertIn('sibuk, tapi santai', response.content.decode())
 
-	#def test_to_do_list_lebih_lima(self):
-	#	Item.objects.create(text='itemey 1')
-	#	Item.objects.create(text='itemey 2')
-	#	Item.objects.create(text='itemey 3')
-	#	Item.objects.create(text='itemey 4')
-	#	Item.objects.create(text='itemey 5')
-	#	request = HttpRequest()
-	#	response = home_page(request)
-	#	self.assertGreaterEqual(Item.objects.count(), 5)
-	#	self.assertIn('oh tidak', response.content.decode())
+	def test_to_do_list_lebih_lima(self):
+		list_ = List.objects.create()
+		Item.objects.create(text='itemey 1', list=list_)
+		Item.objects.create(text='itemey 2', list=list_)
+		Item.objects.create(text='itemey 3', list=list_)
+		Item.objects.create(text='itemey 4', list=list_)
+		Item.objects.create(text='itemey 5', list=list_)
+		request = HttpRequest()
+		response = self.client.get('/lists/%d/' % (list_.id,))
+		#response = home_page(request)
+		self.assertTrue(response, self.assertGreaterEqual(Item.objects.count(), 5))
+		self.assertIn('oh tidak', response.content.decode())
 		
 class ListAndItemModelsTest(TestCase):
 	

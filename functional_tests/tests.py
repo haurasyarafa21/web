@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 import sys 
-import unittest
+#import unnitest
 
 class NewVisitorTest(StaticLiveServerTestCase):
 	

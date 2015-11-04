@@ -18,9 +18,9 @@ class HomePageTest(TestCase):
 			{ 'komen': 'yey, waktunya berlibur' }
 		)
 		self.assertEqual(response.content.decode(), expected_html)
-		self.assertTrue(response.content.startswith(b'<html>'))
-		self.assertIn(b'<title>To-Do</title>', response.content)
-		self.assertTrue(response.content.strip().endswith(b'</html>'))
+		#self.assertTrue(response.content.startswith(b'<html>'))
+		#self.assertIn(b'<title>To-Do</title>', response.content)
+		#self.assertTrue(response.content.strip().endswith(b'</html>'))
 
 	def test_home_page_only_saves_Items_when_necessary(self):
 		request = HttpRequest()
